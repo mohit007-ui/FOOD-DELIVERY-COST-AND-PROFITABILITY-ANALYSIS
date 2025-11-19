@@ -1,4 +1,3 @@
-# FOOD-DELIVERY-COST-AND-PROFITABILITY-ANALYSIS
 🍔📦 Food Delivery Cost & Profitability Analysis
 
 
@@ -12,166 +11,190 @@
 
 🧩 Business Problem Statement
 
-Food delivery companies handle thousands of orders daily — each involving delivery charges, packaging costs, restaurant commissions, discounts, and operational fees.
-However, not every order is profitable.
+Food delivery platforms incur several direct and indirect costs such as delivery fees, discounts, payment processing charges, and refunds. At the same time, their primary source of revenue is the commission fee charged to restaurants.
 
-High discounts, rising delivery costs, and low-margin orders can lead to hidden losses, making profitability analysis essential.
+This project analyzes:
 
-This project solves the problem by analyzing:
+Whether each order is profitable or loss-making
 
-🍽️ How much does each order cost?
-📦 Which cost components impact profit the most?
-💰 Which orders are profitable vs. loss-making?
-📉 How do discounts, delivery distance, and fees affect margins?
-📈 What strategies can improve overall profitability?
+How discounts impact profitability
 
-Through detailed cost breakdown and revenue mapping, the analysis provides strong financial insights for restaurants, delivery platforms, and business stakeholders.
+How much revenue commissions generate
+
+Whether the delivery platform’s current pricing model is sustainable
+
+What commission/discount percentages lead to profit
+
+The goal is to identify the break-even point and recommend strategies to turn unprofitable orders into profitable ones.
 
 📘 Project Overview
 
-This project performs a complete Food Delivery Cost & Profitability Analysis using Python and exploratory data analytics.
-It identifies cost leakages, evaluates order-wise profitability, and provides strategic recommendations for improving financial performance.
+This project performs a complete cost and profitability analysis on food delivery orders using Python.
+It includes:
 
-The analysis is designed for businesses like:
-
-Food delivery platforms
-
-Cloud kitchens
-
-Restaurant chains
-
-Aggregators
+✔ Data cleaning
+✔ Discount extraction and calculation
+✔ Cost & revenue computation
+✔ Order-level profit calculation
+✔ Visual analysis
+✔ Simulation of profitability using recommended discount & commission percentages
 
 🧰 Tech Stack
 
-Python – Data cleaning & transformation
+Python
 
-Pandas – Exploratory data analysis
+Pandas
 
-NumPy – Numerical computations
+NumPy
 
-Matplotlib & Seaborn – Visualizations
+Matplotlib
 
-Dataset Source: Medium (Food Delivery Profitability Dataset)
+Seaborn
+
+Dataset Source: Medium (food_orders_new_delhi.csv)
 
 🗂️ Project Workflow
-1️⃣ Data Collection
+1️⃣ Data Loading & Initial Exploration
 
-Imported Medium dataset
+Loaded a dataset of 1000 food delivery orders
 
-Included order-level details like price, discounts, delivery fees, commissions, etc.
+No missing values except discount column in some cases
+
+Verified data types and structure
 
 2️⃣ Data Cleaning
 
-Removed missing/duplicate values
+Converted
 
-Corrected data types
+Order Date and Time → datetime
 
-Cleaned inconsistent numeric fields
+Delivery Date and Time → datetime
 
-Standardized column formats
+Extracted numeric discount values from strings like:
 
-3️⃣ Feature Engineering
+"10%"
 
-Created essential cost components:
+"15% New User"
 
-Delivery fee
+"50 off Promo"
 
-Packaging cost
+"None"
 
-Discounts
+3️⃣ Discount Handling Logic
 
-Restaurant commission
+Created two new fields:
 
-Platform charges
+🔹 Discount Percentage
 
-Tax & service fee
+Percentage-based discount extracted from “%”
 
-Final order value
+Fixed discounts extracted from “off”
 
-4️⃣ Revenue Calculation
+🔹 Discount Amount
 
-Revenue was computed from:
+Calculated as:
 
-Order value before discount
+If percentage discount → (Order Value × %)
+If fixed discount → fixed amount
+If none → 0
 
-Commission percentage
+4️⃣ Cost Computation
 
-Platform fee
+Total platform cost per order:
 
-5️⃣ Profit Calculation
+Total Costs = Delivery Fee + Payment Processing Fee + Discount Amount
 
-For each order:
+5️⃣ Revenue & Profit Calculation
 
-Profit = Total Revenue – Total Costs
+Platform revenue (per order):
+
+Revenue = Commission Fee
 
 
-Additionally analyzed:
+Profit:
 
-Profit margin
+Profit = Revenue – Total Costs
 
-Loss-making orders
+6️⃣ Overall Financial Summary
 
-High-cost outliers
+After analyzing 1000 orders:
 
-6️⃣ Visual Exploration
+Metric	Value
+Total Orders	1000
+Total Revenue	126,990 INR
+Total Costs	232,709.85 INR
+Total Profit	–105,719.85 INR (Loss)
 
-Built visual insights using Seaborn & Matplotlib:
+👉 The platform is overall loss-making because discounts + delivery + payment fees exceed commission revenue.
 
-Cost distribution
+📊 Visual Analysis
+✔ Profit Distribution
 
-Discount impact
+Histogram showing majority of orders generating negative profit.
 
-Profit vs. loss comparison
+✔ Cost Breakdown
 
-Order value vs. profitability
+Pie chart of:
 
-Correlation heatmap
+Delivery Fee
 
-7️⃣ Recommendations
+Payment Processing Fee
 
-Derived business strategies based on real financial patterns.
+Discount Amount
+Most cost comes from discounts.
 
-🎯 Key Insights
+✔ Revenue vs Costs vs Profit
 
-✔ High discounts drastically reduce profitability
-✔ Delivery cost is the largest contributor to total expenses
-✔ Orders below a certain value often become loss-making
-✔ Commission-based revenue is steady but insufficient when discounts are high
-✔ Packaging cost increases significantly for single-item orders
-✔ A large portion of orders have marginal or negative profit
-✔ Optimizing delivery radius improves profitability
+Bar chart showing:
 
-📊 Visual Output Highlights
+Costs > Revenue → Net loss
 
-Profit vs Cost Scatterplot
+🎯 Strategy: Finding the Profit Sweet Spot
 
-Discount vs Profit Curve
+Analyzed only profitable orders to find sustainable values:
 
-Order Value Distribution
+New Average Commission % (Profitable Orders): ~30.5%
 
-Correlation Heatmap of All Cost Components
+New Average Discount % (Profitable Orders): ~5.8%
 
-Boxplots for outlier detection
+This indicates:
 
-Profitability classification chart
+✔ Higher commissions increase profitability
+✔ Lower discounts significantly reduce losses
+
+🧪 Profitability Simulation
+
+Simulated profitability using:
+
+Commission = 30%
+
+Discount = 6%
+
+Recomputed:
+
+Simulated Commission Fee
+
+Simulated Discount Amount
+
+Simulated Profit
+
+📈 Density plots show that profitability shifts toward positive when recommended values are used.
 
 📂 Repository Structure
-FOOD-DELIVERY-PROFIT-ANALYSIS/
+FOOD_DELIVERY_COST_PROFIT_ANALYSIS/
 │
-├── Food_Delivery_Analysis.ipynb
-├── README.md
-└── /assets
-     └── visualizations.png  (charts from notebook)
+├── Food_Delivery_Cost_Profitability.ipynb
+├── food_orders_new_delhi.csv
+└── README.md
 
 🚀 Conclusion
 
-This end-to-end project demonstrates strong analytical skills:
+This project delivers a clean, actionable profitability analysis:
 
-✔ Data cleaning & processing
-✔ Cost breakdown & financial modeling
-✔ Profitability calculation
-✔ Insight extraction
-✔ Visualization & storytelling
+✔ Extracted & standardized discount values
+✔ Computed order-level cost, revenue, and profit
+✔ Identified that current model is loss-making
+✔ Found optimal discount & commission values
+✔ Simulated future profitability improvements
 
-It showcases your ability to deliver data-driven business insights, suitable for portfolios, interviews, and real-world applications.
+The analysis proves that reducing discounts and increasing commission rates can turn an unprofitable delivery model into a profitable one.
